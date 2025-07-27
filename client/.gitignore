@@ -1,0 +1,60 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment variables (CRUCIAL!)
+.env
+.env.*
+*.local # Catches .env.local, .env.development.local etc. and other *.local files
+
+# Dependency directories
+node_modules/
+
+# Build outputs
+dist/
+dist-ssr/
+build/           # Another common name for a build output directory
+out/             # Yet another common build output directory
+
+# Temporary and Cache Directories
+.cache/
+tmp/
+temp/
+
+# Test Coverage Reports
+coverage/
+
+# Editor directories and files
+.vscode/
+!.vscode/extensions.json # Keep this line to commit recommended VS Code extensions
+.idea/
+.DS_Store
+Thumbs.db        # Windows specific thumbnail cache
+
+# Visual Studio / .NET related files (keep if you might use VS for parts of the project)
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Vim swap files (keep if you use Vim)
+*.sw?
+
+# Framework-specific build/cache directories (add based on your project)
+# .next/         # Uncomment if using Next.js
+# .nuxt/         # Uncomment if using Nuxt.js
+# .svelte-kit/   # Uncomment if using SvelteKit
+# .parcel-cache/ # Uncomment if using Parcel
+# .vite/         # Uncomment if using Vite
+
+# Public asset build folder (uncomment if applicable)
+# public/build/
+
+# Custom sensitive files (add any other specific files you know shouldn't be committed)
+# /config/secrets.js
+# /my-private-key.pem
