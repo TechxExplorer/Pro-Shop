@@ -1,12 +1,8 @@
-// src/contexts/CartContext.jsx
 import React, { createContext, useState, useEffect } from 'react';
 
-// Create the Context with a default value (useful for autocompletion, but can be null)
-export const CartContext = createContext(null);
+export const CartContext = createContext();
 
-// Create the CartProvider component
 export const CartProvider = ({ children }) => {
-  // Initialize cart items from localStorage, or an empty array if not found
   const [cartItems, setCartItems] = useState(() => {
     try {
       const localCart = localStorage.getItem('cartItems');
@@ -17,64 +13,54 @@ export const CartProvider = ({ children }) => {
     }
   });
 
-  // Update localStorage whenever cartItems changes
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
 
   const addToCart = (productToAdd) => {
-    setCartItems((prevItems) => {
-      const existingItemIndex = prevItems.findIndex(
-        (item) => item.id === productToAdd.id
-      );
-
-      if (existingItemIndex > -1) {
-        // Product already in cart, update quantity
-        const updatedItems = [...prevItems];
-        updatedItems[existingItemIndex] = {
-          ...updatedItems[existingItemIndex],
-          quantity: updatedItems[existingItemIndex].quantity + 1,
-        };
-        return updatedItems;
+    setCartItems(prevItems => {
+      const existingItem = prevItems.find(item => item.id === productToAdd.id);
+      
+      if (existingItem) {
+        return prevItems.map(item =>
+          item.id === productToAdd.id 
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
       } else {
-        // Product not in cart, add it with quantity 1
         return [...prevItems, { ...productToAdd, quantity: 1 }];
       }
     });
   };
 
   const removeFromCart = (productId) => {
-    setCartItems((prevItems) =>
-      prevItems.filter((item) => item.id !== productId)
-    );
+    setCartItems(prevItems => prevItems.filter(item => item.id !== productId));
   };
 
   const updateQuantity = (productId, newQuantity) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
+    if (newQuantity < 1) return;
+    
+    setCartItems(prevItems =>
+      prevItems.map(item =>
         item.id === productId ? { ...item, quantity: newQuantity } : item
-      ).filter(item => item.quantity > 0) // Remove if quantity drops to 0 or less
+      )
     );
   };
 
-  // Calculate total items in cart (for a cart icon count)
-  const totalCartItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+  const clearCart = () => {
+    setCartItems([]);
+  };
 
-  // Calculate total price
-  const totalCartPrice = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
-
-
-  const contextValue = {
+  const value = {
     cartItems,
     addToCart,
     removeFromCart,
     updateQuantity,
-    totalCartItems,
-    totalCartPrice,
+    clearCart
   };
 
   return (
-    <CartContext.Provider value={contextValue}>
+    <CartContext.Provider value={value}>
       {children}
     </CartContext.Provider>
   );

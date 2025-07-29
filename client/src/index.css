@@ -1,13 +1,43 @@
-/* Add to client/src/index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Add any custom global styles here */
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', sans-serif; /* Example font */
+  @apply bg-gray-100 text-gray-900; /* Light gray background, dark text */
 }
 
+/* Ensure the root div takes minimum height and allows flex children */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Make sure it takes full viewport height */
+}
 
+/* Make main content area grow to push footer to the bottom */
+main {
+  flex-grow: 1;
+}
+
+/* React Toastify custom styles (optional, can be overridden in ToastContainer props) */
+.Toastify__toast--success {
+  background-color: #4CAF50 !important; /* Green for success */
+}
+
+.Toastify__toast--error {
+  background-color: #F44336 !important; /* Red for error */
+}
+
+.Toastify__toast--info {
+  background-color: #2196F3 !important; /* Blue for info */
+}
+
+.Toastify__toast--warning {
+  background-color: #FFC107 !important; /* Orange for warning */
+}
+
+/* Custom styles for range input and checkboxes (as per your original file) */
 input[type="range"] {
   -webkit-appearance: none;
   height: 6px;

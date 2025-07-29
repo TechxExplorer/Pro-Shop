@@ -1,4 +1,3 @@
-// server/controllers/productController.js
 const asyncHandler = require('express-async-handler');
 const Product = require('../models/Product');
 
@@ -19,33 +18,36 @@ const getProductById = asyncHandler(async (req, res) => {
     if (product) {
         res.json(product);
     } else {
-        res.status(404); // Not Found
+        res.status(404);
         throw new Error('Product not found');
     }
 });
 
-// @desc    Create a product (Admin only)
+// @desc    Create a product
 // @route   POST /api/products
 // @access  Private/Admin
 const createProduct = asyncHandler(async (req, res) => {
-    // Example: hardcode some default product data for creation
+    // req.user comes from the protect middleware
+    const { name, price, description, image, brand, category, countInStock } = req.body;
+
     const product = new Product({
-        name: 'Sample Name',
-        price: 0,
-        user: req.user._id, // User who created it (from protect middleware)
-        image: '/images/sample.jpg', // Placeholder
-        brand: 'Sample Brand',
-        category: 'Sample Category',
-        countInStock: 0,
+        user: req.user._id, // Assign the product to the creating admin user
+        name: name || 'Sample Name', // Provide defaults if not sent
+        price: price || 0,
+        description: description || 'Sample description',
+        image: image || '/images/sample.jpg', // Use a default image path
+        brand: brand || 'Sample Brand',
+        category: category || 'Sample Category',
+        countInStock: countInStock || 0,
+        rating: 0,
         numReviews: 0,
-        description: 'Sample description',
     });
 
     const createdProduct = await product.save();
     res.status(201).json(createdProduct);
 });
 
-// @desc    Update a product (Admin only)
+// @desc    Update a product
 // @route   PUT /api/products/:id
 // @access  Private/Admin
 const updateProduct = asyncHandler(async (req, res) => {
@@ -54,13 +56,13 @@ const updateProduct = asyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id);
 
     if (product) {
-        product.name = name || product.name;
-        product.price = price || product.price;
-        product.description = description || product.description;
-        product.image = image || product.image;
-        product.brand = brand || product.brand;
-        product.category = category || product.category;
-        product.countInStock = countInStock || product.countInStock;
+        product.name = name ?? product.name; // Use nullish coalescing for updates
+        product.price = price ?? product.price;
+        product.description = description ?? product.description;
+        product.image = image ?? product.image;
+        product.brand = brand ?? product.brand;
+        product.category = category ?? product.category;
+        product.countInStock = countInStock ?? product.countInStock;
 
         const updatedProduct = await product.save();
         res.json(updatedProduct);
@@ -70,14 +72,14 @@ const updateProduct = asyncHandler(async (req, res) => {
     }
 });
 
-// @desc    Delete a product (Admin only)
+// @desc    Delete a product
 // @route   DELETE /api/products/:id
 // @access  Private/Admin
 const deleteProduct = asyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id);
 
     if (product) {
-        await Product.deleteOne({ _id: product._id }); // Correct way to delete in Mongoose v6+
+        await Product.deleteOne({ _id: req.params.id }); // Mongoose 6+ syntax
         res.json({ message: 'Product removed' });
     } else {
         res.status(404);
@@ -85,11 +87,10 @@ const deleteProduct = asyncHandler(async (req, res) => {
     }
 });
 
-
 module.exports = {
     getProducts,
     getProductById,
     createProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
 };

@@ -1,10 +1,10 @@
-// client/src/pages/ProductsPage.jsx
-import React, { useState, useContext, useMemo } from 'react'; // Import useContext and useMemo
+import React, { useState, useContext, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { CartContext } from '../contexts/CartContext'; // <--- Import CartContext
+import { CartContext } from '../contexts/CartContext';
+import mockProducts from '../mockData/mockProducts';
 
 const ProductsPage = () => {
-  const { addToCart } = useContext(CartContext); // <--- Consume addToCart from context
+  const { addToCart } = useContext(CartContext);
 
   const [priceRange, setPriceRange] = useState({ min: 0, max: 1000 });
   const [selectedCondition, setSelectedCondition] = useState('any');
@@ -12,131 +12,6 @@ const ProductsPage = () => {
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [selectedFeatures, setSelectedFeatures] = useState([]);
   const [selectedRatings, setSelectedRatings] = useState([]);
-
-  // Mock Products data
-  const mockProducts = [
-    {
-      id: 1,
-      name: "Canon Camera EOS 2000, Black 10x zoom",
-      brand: "Canon", // Added brand for filtering
-      features: ["10x zoom", "Digital SLR"], // Added features
-      condition: "new", // Added condition
-      price: 998.00,
-      oldPrice: 1326.00,
-      rating: 4.5,
-      reviews: 154,
-      freeShipping: true,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-      image: "/assets/images/p16.png",
-      category: "Cameras",
-      isNew: true
-    },
-    {
-      id: 2,
-      name: "GoPro HERO6 4K Action Camera - Black",
-      brand: "GoPro",
-      features: ["4K Video", "Waterproof"],
-      condition: "new",
-      price: 998.00,
-      oldPrice: null,
-      rating: 4.2,
-      reviews: 87,
-      freeShipping: true,
-      description: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      image: "/assets/images/product-view-2.png",
-      category: "Action Cameras"
-    },
-    {
-      id: 3,
-      name: "Sony Alpha a7 III Mirrorless Microphone",
-      brand: "Sony",
-      features: ["Full Frame", "Image Stabilization"],
-      condition: "refurbished",
-      price: 520.00,
-      oldPrice: 680.00,
-      rating: 4.8,
-      reviews: 213,
-      freeShipping: true,
-      description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-      image: "/assets/images/product-4.png",
-      category: "Mirrorless"
-    },
-    {
-      id: 4,
-      name: "Nikon D850 DSLR Camera",
-      brand: "Nikon",
-      features: ["High Resolution", "DSLR"],
-      condition: "old",
-      price: 899.00,
-      oldPrice: 999.00,
-      rating: 4.7,
-      reviews: 189,
-      freeShipping: true,
-      description: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      image: "/assets/images/pr2.jpg",
-      category: "DSLR"
-    },
-    {
-      id: 5,
-      name: "Fujifilm X-T4 Mirrorless Camera",
-      brand: "Fujifilm",
-      features: ["Video Features", "Compact"],
-      condition: "new",
-      price: 699.00,
-      oldPrice: null,
-      rating: 4.6,
-      reviews: 142,
-      freeShipping: true,
-      description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
-      image: "/assets/images/product-3.png",
-      category: "Mirrorless"
-    },
-    {
-      id: 6,
-      name: "Panasonic Lumix GH5",
-      brand: "Panasonic",
-      features: ["Micro Four Thirds", "Video Focus"],
-      condition: "new",
-      price: 1399.00,
-      oldPrice: 1599.00,
-      rating: 4.4,
-      reviews: 98,
-      freeShipping: false,
-      description: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.",
-      image: "/assets/images/pr5.jpg",
-      category: "Mirrorless"
-    },
-    {
-      id: 7,
-      name: "Olympus OM-D E-M1 Mark III",
-      brand: "Olympus",
-      features: ["Weather Sealed", "Portable"],
-      condition: "refurbished",
-      price: 1799.00,
-      oldPrice: null,
-      rating: 4.3,
-      reviews: 76,
-      freeShipping: true,
-      description: "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur.",
-      image: "/assets/images/product-2.png",
-      category: "Mirrorless"
-    },
-    {
-      id: 8,
-      name: "Canon EOS R5 Mirrorless Camera",
-      brand: "Canon",
-      features: ["8K Video", "Full Frame"],
-      condition: "new",
-      price: 999.00,
-      oldPrice: 1099.00,
-      rating: 4.9,
-      reviews: 267,
-      freeShipping: true,
-      description: "Adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.",
-      image: "/assets/images/pr6.jpg",
-      category: "Mirrorless"
-    }
-  ];
 
   // --- Filtering Logic ---
   const filteredProducts = useMemo(() => {
@@ -158,7 +33,6 @@ const ProductsPage = () => {
 
       // Features Filter (product must have ALL selected features)
       if (selectedFeatures.length > 0) {
-        // Check if all selectedFeatures are present in product.features
         const productHasAllFeatures = selectedFeatures.every(selectedFeature =>
           product.features && product.features.includes(selectedFeature)
         );
@@ -179,8 +53,7 @@ const ProductsPage = () => {
 
       return true; // Product passes all filters
     });
-  }, [mockProducts, priceRange, selectedCondition, selectedBrands, selectedFeatures, selectedRatings]);
-
+  }, [priceRange, selectedCondition, selectedBrands, selectedFeatures, selectedRatings]);
 
   const renderStars = (rating) => {
     const stars = [];
@@ -239,7 +112,7 @@ const ProductsPage = () => {
 
   const handleAddToCartClick = (product) => {
     addToCart(product);
-    alert(`${product.name} added to cart!`); // Provide user feedback
+    alert(`${product.name} added to cart!`);
   };
 
   return (
@@ -305,7 +178,7 @@ const ProductsPage = () => {
             <div className="mb-6">
               <h3 className="font-semibold mb-3 text-gray-700">Brands</h3>
               <ul className="space-y-2">
-                {['Samsung', 'Apple', 'Huawei', 'Pocco', 'Lenovo', 'Canon', 'GoPro', 'Sony', 'Nikon', 'Fujifilm', 'Panasonic', 'Olympus'].map((brand, index) => ( // Expanded brands
+                {['Samsung', 'Apple', 'Huawei', 'Pocco', 'Lenovo', 'Canon', 'GoPro', 'Sony', 'Nikon', 'Fujifilm', 'Panasonic', 'Olympus'].map((brand, index) => (
                   <li key={index} className="flex items-center">
                     <input
                       type="checkbox"
@@ -331,7 +204,7 @@ const ProductsPage = () => {
             <div className="mb-6">
               <h3 className="font-semibold mb-3 text-gray-700">Features</h3>
               <ul className="space-y-2">
-                {['Metallic', 'Plastic cover', '8GB Ram', 'Super power', 'Large Memory', '10x zoom', 'Digital SLR', '4K Video', 'Waterproof', 'Full Frame', 'Image Stabilization', 'High Resolution', 'DSLR', 'Video Features', 'Compact', 'Micro Four Thirds', 'Video Focus', 'Weather Sealed', 'Portable', '8K Video'].map((feature, index) => ( // Expanded features
+                {['Metallic', 'Plastic cover', '8GB Ram', 'Super power', 'Large Memory', '10x zoom', 'Digital SLR', '4K Video', 'Waterproof', 'Full Frame', 'Image Stabilization', 'High Resolution', 'DSLR', 'Video Features', 'Compact', 'Micro Four Thirds', 'Video Focus', 'Weather Sealed', 'Portable', '8K Video'].map((feature, index) => (
                   <li key={index} className="flex items-center">
                     <input
                       type="checkbox"
@@ -361,7 +234,7 @@ const ProductsPage = () => {
                   <input
                     type="range"
                     min="0"
-                    max="2000" // Increased max range for mock products
+                    max="2000"
                     value={priceRange.max}
                     onChange={(e) => setPriceRange({...priceRange, max: parseFloat(e.target.value)})}
                     className="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer"
@@ -542,11 +415,11 @@ const ProductsPage = () => {
                       </button>
                     </div>
                   )}
-                  {(priceRange.min !== 0 || priceRange.max !== 1000) && ( // Check if price filter is active
+                  {(priceRange.min !== 0 || priceRange.max !== 1000) && (
                     <div className="bg-gray-100 rounded-full px-3 py-1 text-xs flex items-center mr-2 mb-2">
                       Price: ${priceRange.min} - ${priceRange.max}
                       <button
-                        onClick={() => setPriceRange({min: 0, max: 1000})} // Reset price range
+                        onClick={() => setPriceRange({min: 0, max: 1000})}
                         className="ml-1 text-gray-500 hover:text-gray-700"
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -556,7 +429,7 @@ const ProductsPage = () => {
                     </div>
                   )}
                 </div>
-                {(selectedBrands.length > 0 || selectedFeatures.length > 0 || selectedRatings.length > 0 || selectedCondition !== 'any' || priceRange.min !== 0 || priceRange.max !== 1000) && ( // Show clear all if any filter is active
+                {(selectedBrands.length > 0 || selectedFeatures.length > 0 || selectedRatings.length > 0 || selectedCondition !== 'any' || priceRange.min !== 0 || priceRange.max !== 1000) && (
                   <button
                     onClick={clearFilters}
                     className="text-blue-600 text-xs font-medium hover:underline ml-auto mb-2"
@@ -631,7 +504,6 @@ const ProductsPage = () => {
                         </Link>
 
                         <div className="flex items-center space-x-2">
-                            {/* Add to Cart button */}
                             <button
                                 onClick={() => handleAddToCartClick(product)}
                                 className="inline-flex items-center justify-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
@@ -641,7 +513,6 @@ const ProductsPage = () => {
                                 </svg>
                                 Add to Cart
                             </button>
-                            {/* Wishlist button */}
                             <button className="text-gray-500 hover:text-red-500 p-1 rounded-full hover:bg-gray-100 transition-colors">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />

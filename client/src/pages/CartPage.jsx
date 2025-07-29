@@ -1,128 +1,58 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-// If you're still using Redux for user info on this page, keep this import
-// import { useSelector } from 'react-redux';
+import { CartContext } from '../contexts/CartContext';
 
 const CartPage = () => {
-  // Assuming cart items are fetched or managed globally, but for this example,
-  // we'll keep the static data for now.
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "Sony Alpha a7 III Mirrorless Camera",
-      image: "/assets/images/product-3.png",
-      price: 99.50,
-      color: "black",
-      material: "Great",
-      quantity: 1, // Changed quantity for demonstration
-    },
-    {
-      id: 2,
-      name: "T-shirts with multiple colors, for men and lady",
-      image: "/assets/images/pre_thumb1.jpg",
-      size: "Medium",
-      color: "white",
-      material: "Fabric",
-      seller: "Artal Market",
-      price: 30.99,
-      quantity: 1, // Changed quantity for demonstration
-    },
-    {
-      id: 3,
-      name: "T-shirts with multiple colors, for men and lady",
-      image: "/assets/images/cart2.png",
-      size: "medium",
-      color: "blue",
-      material: "Plastic",
-      seller: "Best Factory LLC",
-      price: 39.00,
-      quantity: 1,
-    },
-  ]);
-
-  const [savedItems, setSavedItems] = useState([
-    {
-      id: 4,
-      name: "GoPro HERO6 4K Action Camera - Black",
-      image: "/assets/images/product-2.png",
-      price: 99.50,
-    },
-    {
-      id: 5,
-      name: "Canon Camera EOS 2000, Black 10x zoom",
-      image: "/assets/images/product-1.png",
-      price: 99.50,
-    },
-    {
-      id: 6,
-      name: "Sony Alpha a7 III Mirrorless Camera",
-      image: "/assets/images/product-3.png",
-      price: 99.50,
-    },
-    {
-      id: 7,
-      name: "Nikon D850 DSLR Camera",
-      image: "/assets/images/product-4.png",
-      price: 99.50,
-    },
-  ]);
-
-  const [couponCode, setCouponCode] = useState('');
-  const [appliedDiscount, setAppliedDiscount] = useState(0); // State for actual discount applied
-
-  // Calculate subtotal dynamically
-  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const { 
+    cartItems, 
+    removeFromCart, 
+    updateQuantity,
+    clearCart
+  } = useContext(CartContext);
   
-  // Example tax calculation (e.g., 5% of subtotal)
+  const [savedItems, setSavedItems] = useState([]);
+  const [couponCode, setCouponCode] = useState('');
+  const [appliedDiscount, setAppliedDiscount] = useState(0);
+
+  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const taxRate = 0.05;
   const calculatedTax = subtotal * taxRate;
-
-  // Total calculation includes dynamic discount
   const total = subtotal - appliedDiscount + calculatedTax;
 
-  const updateQuantity = (id, newQuantity) => {
-    if (newQuantity < 1) return;
-    
-    setCartItems(cartItems.map(item => 
-      item.id === id ? {...item, quantity: newQuantity} : item
-    ));
+  const handleUpdateQuantity = (id, newQuantity) => {
+    updateQuantity(id, newQuantity);
   };
 
-  const removeItem = (id) => {
-    setCartItems(cartItems.filter(item => item.id !== id));
+  const handleRemoveItem = (id) => {
+    removeFromCart(id);
   };
 
   const moveToSaved = (id) => {
     const item = cartItems.find(item => item.id === id);
     if (item) {
-      setSavedItems([...savedItems, {...item, id: Date.now()}]); // Use Date.now() for unique ID
-      removeItem(id);
+      handleRemoveItem(id);
+      setSavedItems(prev => [...prev, { ...item, id: Date.now() }]);
     }
   };
 
   const moveToCart = (id) => {
     const item = savedItems.find(item => item.id === id);
     if (item) {
-      setCartItems([...cartItems, {...item, quantity: 1}]);
-      setSavedItems(savedItems.filter(item => item.id !== id));
+      updateQuantity(item.id, item.quantity || 1);
+      setSavedItems(prev => prev.filter(savedItem => savedItem.id !== id));
     }
   };
 
   const removeSavedItem = (id) => {
-    setSavedItems(savedItems.filter(item => item.id !== id));
+    setSavedItems(prev => prev.filter(item => item.id !== id));
   };
 
   const handleApplyCoupon = () => {
-    // --- Coupon Logic Placeholder ---
-    // In a real application, you would send this couponCode to your backend
-    // to validate it and get the actual discount amount.
-    // For demonstration, let's use some dummy codes:
-
     if (couponCode.toUpperCase() === 'SAVE10') {
-      setAppliedDiscount(10.00); // Apply a $10 discount
+      setAppliedDiscount(10.00);
       alert('Coupon "SAVE10" applied successfully! $10 off.');
     } else if (couponCode.toUpperCase() === 'FIFTYOFF') {
-      const maxDiscount = subtotal * 0.5; // 50% off up to subtotal
+      const maxDiscount = subtotal * 0.5;
       setAppliedDiscount(maxDiscount);
       alert('Coupon "FIFTYOFF" applied successfully! 50% off.');
     } else {
@@ -136,7 +66,7 @@ const CartPage = () => {
     '/assets/images/card2.png',
     '/assets/images/card3.png',
     '/assets/images/card4.png',
-    '/assets/images/card5.png',
+    '/极简主义/images/card5.png',
   ];
 
   return (
@@ -181,18 +111,18 @@ const CartPage = () => {
                       <h3 className="font-semibold text-gray-800 mb-2">{item.name}</h3>
                       
                       <div className="flex flex-wrap gap-2 text-sm text-gray-600 mb-4">
-                        <span>Size: {item.size}</span>
+                        <span>Size: {item.size || 'N/A'}</span>
                         <span>|</span>
-                        <span>Color: {item.color}</span>
+                        <span>Color: {item.color || 'N/A'}</span>
                         <span>|</span>
-                        <span>Material: {item.material}</span>
+                        <span>Material: {item.material || 'N/A'}</span>
                         <span>|</span>
-                        <span>Seller: {item.seller}</span>
+                        <span>Seller: {item.seller || 'N/A'}</span>
                       </div>
                       
                       <div className="flex gap-4">
                         <button 
-                          onClick={() => removeItem(item.id)}
+                          onClick={() => handleRemoveItem(item.id)}
                           className="text-red-600 hover:text-red-800 text-sm font-medium"
                         >
                           Remove
@@ -213,14 +143,14 @@ const CartPage = () => {
                       <div className="flex items-center border border-gray-300 rounded-md">
                         <button 
                           className="px-3 py-1 text-gray-500 hover:bg-gray-100"
-                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          onClick={() => handleUpdateQuantity(item.id, item.quantity - 1)}
                         >
                           -
                         </button>
                         <span className="px-3 py-1 text-gray-800">{item.quantity}</span>
                         <button 
                           className="px-3 py-1 text-gray-500 hover:bg-gray-100"
-                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          onClick={() => handleUpdateQuantity(item.id, item.quantity + 1)}
                         >
                           +
                         </button>
@@ -238,7 +168,7 @@ const CartPage = () => {
                   Back to shop
                 </Link>
                 <button 
-                  onClick={() => setCartItems([])}
+                  onClick={clearCart}
                   className="text-red-600 hover:text-red-800 font-medium"
                 >
                   Remove all
@@ -298,12 +228,12 @@ const CartPage = () => {
                     type="text" 
                     id="coupon" 
                     placeholder="Add coupon" 
-                    value={couponCode} // Bind value to state
-                    onChange={(e) => setCouponCode(e.target.value)} // Update state on change
+                    value={couponCode}
+                    onChange={(e) => setCouponCode(e.target.value)}
                     className="flex-grow px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-1 focus:ring-blue-500"
                   />
                   <button 
-                    onClick={handleApplyCoupon} // Call the new handler
+                    onClick={handleApplyCoupon}
                     className="bg-blue-600 text-white px-4 py-2 rounded-r-md hover:bg-blue-700"
                   >
                     Apply
@@ -319,13 +249,11 @@ const CartPage = () => {
                 
                 <div className="flex justify-between">
                   <span className="text-gray-600">Discount:</span>
-                  {/* Display actual applied discount */}
                   <span className="font-medium text-red-600">-${appliedDiscount.toFixed(2)}</span>
                 </div>
                 
                 <div className="flex justify-between">
                   <span className="text-gray-600">Tax:</span>
-                  {/* Display calculated tax */}
                   <span className="font-medium text-green-600">+${calculatedTax.toFixed(2)}</span>
                 </div>
                 
@@ -342,14 +270,14 @@ const CartPage = () => {
               </button>
               
               <div className="mb-6">
-                <h4 className="text-sm font-medium text-gray-700 mb-3">We accept:</h4>
+                <h4 className="text-sm font-medium text-gray极简主义-700 mb-3">We accept:</h4>
                 <div className="flex gap-2 flex-wrap">
                   {paymentCardImages.map((src, index) => (
                     <div key={index} className="border border-gray-200 rounded-md p-2 flex items-center justify-center">
                       <img 
                         src={src} 
                         alt={`Payment Card ${index + 1}`} 
-                        className="h-6 w-10 object-contain" // Adjust size as needed
+                        className="h-6 w-10 object-contain"
                       />
                     </div>
                   ))}
