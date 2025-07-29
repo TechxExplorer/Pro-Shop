@@ -1,7 +1,9 @@
-const asyncHandler = require('express-async-handler');
-const Product = require('../models/Product');
+// server/controllers/productController.js
 
-// @desc    Fetch all products
+const asyncHandler = require('express-async-handler');
+const Product = require('../models/Product'); // Ensure this path is correct
+
+// @desc    Fetch all products (This function must be present)
 // @route   GET /api/products
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
@@ -27,15 +29,14 @@ const getProductById = asyncHandler(async (req, res) => {
 // @route   POST /api/products
 // @access  Private/Admin
 const createProduct = asyncHandler(async (req, res) => {
-    // req.user comes from the protect middleware
     const { name, price, description, image, brand, category, countInStock } = req.body;
 
     const product = new Product({
-        user: req.user._id, // Assign the product to the creating admin user
-        name: name || 'Sample Name', // Provide defaults if not sent
+        user: req.user._id,
+        name: name || 'Sample Name',
         price: price || 0,
         description: description || 'Sample description',
-        image: image || '/images/sample.jpg', // Use a default image path
+        image: image || '/images/sample.jpg',
         brand: brand || 'Sample Brand',
         category: category || 'Sample Category',
         countInStock: countInStock || 0,
@@ -56,7 +57,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id);
 
     if (product) {
-        product.name = name ?? product.name; // Use nullish coalescing for updates
+        product.name = name ?? product.name;
         product.price = price ?? product.price;
         product.description = description ?? product.description;
         product.image = image ?? product.image;
@@ -79,7 +80,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id);
 
     if (product) {
-        await Product.deleteOne({ _id: req.params.id }); // Mongoose 6+ syntax
+        await Product.deleteOne({ _id: req.params.id });
         res.json({ message: 'Product removed' });
     } else {
         res.status(404);
@@ -87,10 +88,20 @@ const deleteProduct = asyncHandler(async (req, res) => {
     }
 });
 
+// @desc    Fetch all products for admin dashboard (This function must be present)
+// @route   GET /api/products/admin
+// @access  Private/Admin
+const getAdminProducts = asyncHandler(async (req, res) => {
+    const products = await Product.find({});
+    res.json(products);
+});
+
+
 module.exports = {
-    getProducts,
+    getProducts, // <--- This line is throwing the error
     getProductById,
     createProduct,
     updateProduct,
     deleteProduct,
+    getAdminProducts,
 };

@@ -68,17 +68,18 @@ const ProductForm = () => {
         }
     }, [id, isEditMode, userInfo, token, navigate]); // Dependencies for useEffect
 
+
     const submitHandler = async (e) => {
         e.preventDefault();
         setLoading(true);
         setError(null);
 
         // Basic validation (you can add more robust validation)
-        if (!name || !description || !price || !brand || !category || countInStock === '') {
-            toast.error('Please fill in all required fields.');
-            setLoading(false);
-            return;
-        }
+        if (!name || !description || !price || !image || !brand || !category || countInStock === '') { // <--- ADD !image HERE
+    toast.error('Please fill in all required fields.');
+    setLoading(false);
+    return;
+}
         if (isNaN(price) || Number(price) < 0) {
             toast.error('Price must be a valid non-negative number.');
             setLoading(false);
@@ -112,11 +113,11 @@ const ProductForm = () => {
             };
 
             if (isEditMode) {
-                // Send PUT request for updating product
-                await axios.put(`/api/products/${id}`, productData, config);
+                // This is the line that sends the PUT request for updating a product:
+                await axios.put(`/api/products/${id}`, productData, config); // <--- UPDATE CODE IS HERE
                 toast.success('Product updated successfully!');
             } else {
-                // Send POST request for creating product
+                // This is the line that sends the POST request for creating a product:
                 await axios.post('/api/products', productData, config);
                 toast.success('Product created successfully!');
             }
@@ -129,6 +130,7 @@ const ProductForm = () => {
             setLoading(false);
         }
     };
+
 
     return (
         <div className="container mx-auto px-4 py-8 max-w-2xl">
