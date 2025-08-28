@@ -152,9 +152,7 @@ Open browser → `http://localhost:5173`
 
 <img width="1119" height="576" alt="image" src="https://github.com/user-attachments/assets/0f12f329-58ae-4791-ba22-8c82e1380abe" />
 <img width="626" height="478" alt="image" src="https://github.com/user-attachments/assets/3ca0d5ba-013a-4679-9262-6fb707e9fa1e" />
-<img width="682" height="604" alt="image" src="https://github.com/user-attachments/assets/8a93eeee-fafd-4698-9e52-8d8876c068b2" />
-
-
+<img width="675" height="595" alt="image" src="https://github.com/user-attachments/assets/68313e0a-5f8f-49b2-81ea-d276eb62f202" />
 
 ---
 
