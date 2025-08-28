@@ -1,4 +1,6 @@
-<img width="800" height="480" alt="image" src="https://github.com/user-attachments/assets/6f84ca3b-57a4-4d4c-a37a-7fc7e426b964" />
+
+<img width="904" height="592" alt="image" src="https://github.com/user-attachments/assets/fd249dc1-031a-4420-af38-a1578351b4cf" />
+
 Great choice ✅ — adding a **roadmap with checkmarks** will make your repo look super professional and show progress at a glance (perfect for supervisors or recruiters).
 
 Here’s your **final README with roadmap included**:
@@ -150,10 +152,10 @@ Open browser → `http://localhost:5173`
 ---
 
 ## 📸 Screenshots 
-<img width="800" height="480" alt="image" src="https://github.com/user-attachments/assets/6f84ca3b-57a4-4d4c-a37a-7fc7e426b964" />
+<img width="904" height="592" alt="image" src="https://github.com/user-attachments/assets/6f23791e-7412-4b62-918a-f35878ffdbf2" /> Desktop View
 
-Mobile View
-<img width="704" height="576" alt="image" src="https://github.com/user-attachments/assets/84e12f15-e1f0-4bd3-8632-c0483ce0107a" />
+
+<img width="704" height="576" alt="image" src="https://github.com/user-attachments/assets/84e12f15-e1f0-4bd3-8632-c0483ce0107a" /> Mobile View
 
 
 ---
