@@ -152,10 +152,19 @@ Open browser → `http://localhost:5173`
 ---
 
 ## 📸 Screenshots 
-<img width="904" height="592" alt="image" src="https://github.com/user-attachments/assets/6f23791e-7412-4b62-918a-f35878ffdbf2" /> Desktop View
+<img width="904" height="592" alt="image" src="https://github.com/user-attachments/assets/6f23791e-7412-4b62-918a-f35878ffdbf2" /> 
+
+           Desktop View
 
 
-<img width="704" height="576" alt="image" src="https://github.com/user-attachments/assets/84e12f15-e1f0-4bd3-8632-c0483ce0107a" /> Mobile View
+
+
+ -->Item Listing Page 
+ <img width="193" height="577" alt="image" src="https://github.com/user-attachments/assets/26066109-88ab-42c5-af74-d78e23136bb7" /> 
+ -->Cart Page
+<img width="162" height="538" alt="image" src="https://github.com/user-attachments/assets/c28036f6-710f-4dc6-b14f-9d14bda0ed63" /> 
+
+          Mobile View
 
 
 ---
