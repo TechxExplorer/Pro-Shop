@@ -1,4 +1,5 @@
-<img width="1119" height="576" alt="image" src="https://github.com/user-attachments/assets/9863cc4b-d1b5-4a25-844e-4c6ed265891d" />Great choice ✅ — adding a **roadmap with checkmarks** will make your repo look super professional and show progress at a glance (perfect for supervisors or recruiters).
+<img width="800" height="480" alt="image" src="https://github.com/user-attachments/assets/6f84ca3b-57a4-4d4c-a37a-7fc7e426b964" />
+Great choice ✅ — adding a **roadmap with checkmarks** will make your repo look super professional and show progress at a glance (perfect for supervisors or recruiters).
 
 Here’s your **final README with roadmap included**:
 
@@ -149,10 +150,11 @@ Open browser → `http://localhost:5173`
 ---
 
 ## 📸 Screenshots 
+<img width="800" height="480" alt="image" src="https://github.com/user-attachments/assets/6f84ca3b-57a4-4d4c-a37a-7fc7e426b964" />
 
-<img width="1119" height="576" alt="image" src="https://github.com/user-attachments/assets/0f12f329-58ae-4791-ba22-8c82e1380abe" />
-<img width="626" height="478" alt="image" src="https://github.com/user-attachments/assets/3ca0d5ba-013a-4679-9262-6fb707e9fa1e" />
-<img width="675" height="595" alt="image" src="https://github.com/user-attachments/assets/68313e0a-5f8f-49b2-81ea-d276eb62f202" />
+Mobile View
+<img width="704" height="576" alt="image" src="https://github.com/user-attachments/assets/84e12f15-e1f0-4bd3-8632-c0483ce0107a" />
+
 
 ---
 
