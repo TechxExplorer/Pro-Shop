@@ -148,10 +148,11 @@ Open browser → `http://localhost:5173`
 
 ---
 
-## 📸 Screenshots (Optional)
+## 📸 Screenshots 
 
 <img width="1119" height="576" alt="image" src="https://github.com/user-attachments/assets/0f12f329-58ae-4791-ba22-8c82e1380abe" />
 <img width="626" height="478" alt="image" src="https://github.com/user-attachments/assets/3ca0d5ba-013a-4679-9262-6fb707e9fa1e" />
+<img width="682" height="604" alt="image" src="https://github.com/user-attachments/assets/8a93eeee-fafd-4698-9e52-8d8876c068b2" />
 
 
 
@@ -168,7 +169,3 @@ Open browser → `http://localhost:5173`
 
 Contributions, issues, and feature requests are welcome!
 Feel free to fork this repo, open a pull request, or create an issue.
-
----
-
-Would you also like me to **add a “Future Improvements” section** (e.g., payment gateway, order tracking, wishlist, reviews) so it looks even more like a professional long-term project?
