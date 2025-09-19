@@ -1,12 +1,6 @@
 
 <img width="904" height="592" alt="image" src="https://github.com/user-attachments/assets/fd249dc1-031a-4420-af38-a1578351b4cf" />
 
-Great choice ✅ — adding a **roadmap with checkmarks** will make your repo look super professional and show progress at a glance (perfect for supervisors or recruiters).
-
-Here’s your **final README with roadmap included**:
-
----
-
 # 🛒 ECommerce-Proshop Full-Stack Web Application
 
 ![React](https://img.shields.io/badge/Frontend-React.js-61DBFB?logo=react\&logoColor=white)
@@ -154,6 +148,7 @@ Open browser → `http://localhost:5173`
 ## 📸 Screenshots 
 <img width="904" height="592" alt="image" src="https://github.com/user-attachments/assets/6f23791e-7412-4b62-918a-f35878ffdbf2" /> 
 
+
            Desktop View
 
 
@@ -164,6 +159,7 @@ Open browser → `http://localhost:5173`
  -->Cart Page
 <img width="162" height="538" alt="image" src="https://github.com/user-attachments/assets/c28036f6-710f-4dc6-b14f-9d14bda0ed63" /> 
 
+
           Mobile View
 
 
@@ -171,7 +167,7 @@ Open browser → `http://localhost:5173`
 
 ## 👨‍💻 Author
 
-**[Codex Explorer](https://github.com/codexexplorer)**
+**[TechxExplorer](https://github.com/Techxexplorer)**
 💡 Full-stack developer in training | MERN Stack Enthusiast | Open Source Learner
 
 ---
